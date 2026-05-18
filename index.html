@@ -579,27 +579,31 @@ footer p{font-size:.78rem;color:var(--dim)}
   gap:.8rem;
 }
 
-.bot-msg,
+/* USER MESSAGE - LIGHT MODE */
 .user-msg{
-  max-width:85%;
-  padding:.8rem 1rem;
-  border-radius:12px;
-  font-size:.85rem;
-  line-height:1.6;
+  background: #332d29;
+  color: #ffffff;
+
+  align-self: flex-end;
+
+  padding: .8rem 1rem;
+  border-radius: 12px;
+
+  border: 1px solid rgba(0,0,0,0.08);
 }
 
+/* USER MESSAGE - DARK MODE */
+body.dark .user-msg{
+  background: #f5efe8;
+  color: #111111;
+
+  border: 1px solid rgba(255,255,255,0.08);
+}
 .bot-msg{
 background:var(--surface);
 color:var(--text);
 border:1px solid var(--border);
 align-self:flex-start;
-}
-
-
-.user-msg{
-  background:var(--text);
-  color:white;
-  align-self:flex-end;
 }
 
 .quick-prompts{
@@ -670,7 +674,34 @@ background:rgba(18,16,14,0.82);
 border-bottom:1px solid var(--border);
 backdrop-filter:blur(18px);
 }
+/* QUICK BUTTONS */
+.quick-btn {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.08);
 
+  background: #ffffff !important;
+  color: #111111 !important;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* DARK MODE */
+body.dark .quick-btn {
+  background: rgba(255,255,255,0.08) !important;
+  color: #ffffff !important;
+
+  border: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+/* HOVER */
+.quick-btn:hover {
+  transform: translateY(-2px);
+}
 </style>
 </head>
 <body>
@@ -1234,15 +1265,33 @@ backdrop-filter:blur(18px);
 
       </div>
 
-      <div class="quick-prompts">
-        <button onclick="sendPrompt('projects')">💼 Projects</button>
-        <button onclick="sendPrompt('skills')">⚙️ Skills</button>
-        <button onclick="sendPrompt('experience')">👩‍💻 Experience</button>
-        <button onclick="sendPrompt('freelance')">🚀 Freelance</button>
-        <button onclick="sendPrompt('contact')">📬 Contact</button>
-        <button onclick="sendPrompt('location')">📍 Location</button>
-      </div>
+     <div class="quick-prompts">
 
+  <button class="quick-btn" onclick="fillInput('projects')">
+    💼 Projects
+  </button>
+
+  <button class="quick-btn" onclick="fillInput('skills')">
+    ⚙️ Skills
+  </button>
+
+  <button class="quick-btn" onclick="fillInput('experience')">
+    👩‍💻 Experience
+  </button>
+
+  <button class="quick-btn" onclick="fillInput('freelance')">
+    🚀 Freelance
+  </button>
+
+  <button class="quick-btn" onclick="fillInput('contact')">
+    📬 Contact
+  </button>
+
+  <button class="quick-btn" onclick="fillInput('location')">
+    📍 Location
+  </button>
+
+</div>
       <div class="chat-input-wrap">
 
         <input
@@ -1357,7 +1406,11 @@ function addMessage(text, type){
 
   chat.scrollTop = chat.scrollHeight;
 }
+function fillInput(text){
 
+  document.getElementById('chat-input').value = text;
+
+}
 function sendPrompt(key){
 
   addMessage(key, 'user');
